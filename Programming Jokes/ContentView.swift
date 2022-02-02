@@ -32,6 +32,7 @@ struct ContentView: View {
                           punchline: "She followed the shampoo bottle instructions: Lather. Rinse. Repeat."))
         jokes.append(Joke(setup: "There are 10 types of people in the world",
                           punchline: "Those who understand binary and those who don’t."))
+        let apiKey = "?rapidapi-key=let apiKey = 85c126a191mshef2fbb4d6d15781p19c6dfjsn0a0e409a7678"
     }
 }
 
