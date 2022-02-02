@@ -22,17 +22,27 @@ struct ContentView: View {
             .navigationTitle("Programming Jokes")
         }
         .onAppear(perform: {
-                   getJokes()
-               })
+            getJokes()
+        })
     }
     func getJokes() {
-        jokes.append(Joke(setup: "Why do programmers always get Christmas and Halloween mixed up?",
-                          punchline: "Because DEC 25 = OCT 31"))
-        jokes.append(Joke(setup: "How did the programmer die in the shower?",
-                          punchline: "She followed the shampoo bottle instructions: Lather. Rinse. Repeat."))
-        jokes.append(Joke(setup: "There are 10 types of people in the world",
-                          punchline: "Those who understand binary and those who don’t."))
-        let apiKey = "?rapidapi-key=let apiKey = 85c126a191mshef2fbb4d6d15781p19c6dfjsn0a0e409a7678"
+        let apiKey = "?rapidapi-key=85c126a191mshef2fbb4d6d15781p19c6dfjsn0a0e409a7678"
+        let query = "https://dad-jokes.p.rapidapi.com/joke/type/programming\(apiKey)"
+        if let url = URL(string: query) {
+            if let data = try? Data(contentsOf: url) {
+                let json = try! JSON(data: data)
+                if json["success"] == true {
+                    let contents = json["body"].arrayValue
+                    for item in contents {
+                        let setup = item["setup"].stringValue
+                        let punchline = item["punchline"].stringValue
+                        let joke = Joke(setup: setup, punchline: punchline)
+                        jokes.append(joke)
+                    }
+                    
+                }
+            }
+        }
     }
 }
 
